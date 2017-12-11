@@ -1,0 +1,30 @@
+<style>
+  code {
+    font-family: Monaco, Menlo, Consolas, "Courier New", FontAwesome, monospace;
+  }
+</style>
+
+<div class="hola-container hola-layout-container"
+     id="blog-container"
+     data-blogid="{{ postID }}"
+     data-vote="{{ userVote }}"
+     data-thumbUp="{{ postThumbUp }}">
+  <div class="hola-layout-main hola-card-stack" style="width: 100%;">
+    <div class="hola-card">
+      <h2 class="hola-card-title">{{ postTitle }}</h2>
+      <div id="article-content">
+        {{{ postContent }}}
+      </div>
+      <br>
+      <p><i>发表于 {{ postTime }} in <a href=".#type={{ postType }}">{{ postType }}</a></i></p>
+      {{#if isBlogAdmin}}
+        &emsp;<p><a href="{{ luoguAddress }}/blogAdmin/article/edit/{{ postID }}">编辑</a></p>
+      {{/if}}
+      <div id="article-vote"></div>
+    </div>
+  </div>
+
+  <div id="article-comments"></div>
+</div>
+
+<link rel="stylesheet" href="/static/blog/holakit/katex.css">

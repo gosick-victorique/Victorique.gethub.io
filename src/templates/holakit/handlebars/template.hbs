@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html class="hola-html-reset hola-var lgblog-var">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>{{ title }} - {{ blogName }}</title>
+  <meta name="blog-uid" content="{{ blogUID }}">
+  <meta name="blog-name" content="{{ blogName }}">
+  <meta name="current-user" content="{{ currentUser }}">
+  <meta name="theme-settings" content="{{ themeSettingsJson }}">
+  <link rel="stylesheet" href="/static/blog/holakit/common.css">
+  {{>styles}}
+</head>
+<body class="hola-body-typography hola-grey-bg">
+<header class="hola-navbar
+{{#if postID}}
+  hola-navbar-white hola-navbar-lightbg
+{{else}}
+  hola-navbar-transparent hola-navbar-darkbg hola-navbar-with-hero
+{{/if}}
+">
+  <div class="hola-container">
+    <nav class="hola-navbar-main">
+      <a href="." class="hola-navbar-brand">{{ blogName }}</a>
+    </nav>
+    <nav class="hola-navbar-sub">
+      <a href=".">文章</a>
+      {{#if isBlogAdmin}}
+        <a href="{{ luoguAddress }}/blogAdmin">管理后台</a>
+      {{/if}}
+    </nav>
+  </div>
+</header>
+{{#unless postID}}
+{{#if themeSettings.config.ui.background_image}}
+  <style>
+    .hola-hero {
+      background-image: url({{ themeSettings.config.ui.background_image }});
+      background-size: cover;
+    }
+    .hola-hero h1, .hola-hero p {
+      text-shadow: 1px 1px 1px var(--hola-text-dark-color);
+    }
+  </style>
+{{/if}}
+<style>
+  .lgblog-var {
+    --hola-primary-color: {{ themeSettings.config.ui.primary_color }};
+    --hola-focus-color: {{ themeSettings.config.ui.focus_color }};
+  }
+</style>
+<div class="hola-hero hola-hero-height-extended">
+  <div class="hola-container hola-hero-content">
+    <h1>{{ blogName }}</h1>
+    <p>{{ blogSubtitle }}</p>
+  </div>
+</div>
+{{/unless}}
+{{>content}}
+<script>
+var BlogGlobals = {
+  blogName: document.querySelector('meta[name=blog-name]').getAttribute('content'),
+  blogUID: parseInt(document.querySelector('meta[name=blog-uid]').getAttribute('content')),
+  currentUser: parseInt(document.querySelector('meta[name=current-user]').getAttribute('content')),
+  luoguAddress: '{{ luoguAddress }}',
+  picAddress: '{{ picAddress }}',
+  config: JSON.parse(document.querySelector('meta[name=theme-settings]').getAttribute('content'))
+}
+</script>
+<script src="/static/blog/holakit/common.js"></script>
+{{>scripts}}
+<footer class="hola-footer">
+  <div class="hola-container">
+    <p>自豪地采用基于 <a href="https://github.com/teamhola/holakit">HolaKit</a> 打造的洛谷博客主题。</p>
+    <p>HolaKit 由 <a href="https://ihola.one">¡Hola! 青少年</a>开发。</p>
+  </div>
+</footer>
+</body>
+</html>
